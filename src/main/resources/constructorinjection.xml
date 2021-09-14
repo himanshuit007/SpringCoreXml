@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<bean id="commonAddress"
+		class="com.him.spring.applicationcontext.constructorinjection.Address">
+		<constructor-arg name="street" value="1"></constructor-arg>
+		<constructor-arg name="city" value="Ahm"></constructor-arg>
+		<constructor-arg name="state" value="GUJ"></constructor-arg>
+		<constructor-arg name="country" value="IND"></constructor-arg>
+	</bean>
+	<bean id="commonAddress1"
+		class="com.him.spring.applicationcontext.constructorinjection.Address">
+		<constructor-arg name="street" value="2"></constructor-arg>
+		<constructor-arg name="city" value="Bangalore"></constructor-arg>
+		<constructor-arg name="state" value="Karnataka"></constructor-arg>
+		<constructor-arg name="country" value="IND"></constructor-arg>
+	</bean>
+
+	<bean id="p1"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg name="id" value="1"></constructor-arg>
+		<constructor-arg name="name" value="himanshu"></constructor-arg>
+		<constructor-arg name="address" ref="commonAddress"></constructor-arg>
+	</bean>
+
+	<bean id="p2"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg index="0" value="Vijay"></constructor-arg>
+		<constructor-arg index="1" value="3434"></constructor-arg>
+		<constructor-arg index="2" ref="commonAddress"></constructor-arg>
+	</bean>
+	<bean id="p3"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg type="java.lang.String" value="Manoj"></constructor-arg>
+		<constructor-arg type="int" value="12334"></constructor-arg>
+		<constructor-arg
+			type="com.him.spring.applicationcontext.constructorinjection.Address"
+			ref="commonAddress"></constructor-arg>
+	</bean>
+
+	<bean id="p4"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg type="java.lang.String"
+			value="Hrithik"></constructor-arg>
+		<constructor-arg type="int" value="12334"></constructor-arg>
+	</bean>
+
+
+	<!-- <bean id="temp" class="com.him.spring.applicationcontext.constructorinjection.Person"> 
+		<constructor-arg name="name" value="Akshay"></constructor-arg> </bean> will 
+		generaate error because no constructor defined with one argument -->
+
+
+	<!-- inner bean -->
+	<bean id="p5"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg name="id" value="2"></constructor-arg>
+		<constructor-arg name="name" value="Ajay"></constructor-arg>
+		<constructor-arg name="address">
+			<bean
+				class="com.him.spring.applicationcontext.constructorinjection.Address">
+				<constructor-arg name="street" value="3"></constructor-arg>
+				<constructor-arg name="city" value="Por"></constructor-arg>
+				<constructor-arg name="state" value="GUJ"></constructor-arg>
+				<constructor-arg name="country" value="IND"></constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="car1"
+		class="com.him.spring.applicationcontext.constructorinjection.Car">
+		<constructor-arg name="name" value="Lamborghini"></constructor-arg>
+	</bean>
+	<bean id="car2"
+		class="com.him.spring.applicationcontext.constructorinjection.Car">
+		<constructor-arg name="name" value="Maruti"></constructor-arg>
+	</bean>
+	<bean id="c1"
+		class="com.him.spring.applicationcontext.constructorinjection.Contact">
+		<constructor-arg name="number" value="1"></constructor-arg>
+	</bean>
+	<bean id="c2"
+		class="com.him.spring.applicationcontext.constructorinjection.Contact">
+		<constructor-arg name="number" value="2313"></constructor-arg>
+	</bean>
+
+	<bean id="p6"
+		class="com.him.spring.applicationcontext.constructorinjection.Person">
+		<constructor-arg name="id" value="4"></constructor-arg>
+		<constructor-arg name="name" value="Vishal"></constructor-arg>
+		<constructor-arg name="address">
+			<bean
+				class="com.him.spring.applicationcontext.constructorinjection.Address">
+				<constructor-arg name="street" value="6"></constructor-arg>
+				<constructor-arg name="city" value="Bhuj"></constructor-arg>
+				<constructor-arg name="state" value="GUJ"></constructor-arg>
+				<constructor-arg name="country" value="IND"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg name="list">
+			<list>
+				<ref bean="c1" />
+				<ref bean="c2" />
+			</list>
+		</constructor-arg>
+
+		<constructor-arg name="set">
+			<set>
+				<ref bean="car1" />
+				<ref bean="car2" />
+			</set>
+		</constructor-arg>
+		<constructor-arg name="map">
+			<map>
+				<entry key="1" value="India"></entry>
+				<entry key="2" value="Usa"></entry>
+				<entry key="3" value="China"></entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg name="props">
+			<props>
+				<prop key="usenrame">Himanshu</prop>
+				<prop key="password">admin</prop>
+			</props>
+		</constructor-arg>
+		<constructor-arg name="languages">
+			<list>
+				<value>English</value>
+				<value>Spanish</value>
+				<value>German</value>
+				<value>French</value>
+			</list>
+		</constructor-arg>
+
+		<constructor-arg>
+			<list value-type="java.lang.Long">
+				<value>9999912345</value>
+				<value>9999956789</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<array>
+				<value>Playing cricket</value>
+				<value>Coding</value>
+				<value>Reading books</value>
+			</array>
+		</constructor-arg>
+		<constructor-arg>
+			<array>
+				<ref bean="commonAddress" />
+				<ref bean="commonAddress1" />
+			</array>
+		</constructor-arg>
+	</bean>
+
+	<!--Bean definintion inheritance -->
+	<bean id="baseCustomer"
+		class="com.him.spring.applicationcontext.constructorinjection.inheritance.Customer">
+		<property name="country" value="India" />
+	</bean>
+
+	<bean id="baseCustomer1" abstract="true">
+		<property name="country" value="India" />
+	</bean>
+
+	<bean id="customer" parent="baseCustomer">
+		<property name="name" value="kb" />
+		<property name="email" value="kb@gmail.com" />
+	</bean>
+
+	<!-- Bean scopes -->
+	<bean id="singletone" parent="baseCustomer" scope="singleton">
+		<property name="name" value="kb" />
+		<property name="email" value="kb@gmail.com" />
+	</bean>
+	<bean id="prototype" parent="baseCustomer" scope="prototype">
+		<property name="name" value="kb" />
+		<property name="email" value="kb@gmail.com" />
+	</bean>
+	<!-- BeanPostProcessor -->
+	<bean
+		class="com.him.spring.applicationcontext.constructorinjection.MyBeanPostProcessor"></bean>
+
+	<!-- Aware Interface -->
+	<bean id="springAwareInterfaceImpl"
+		class="com.him.spring.applicationcontext.constructorinjection.SpringAwareInterfaceImpl" />
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+</beans>
